@@ -50,9 +50,7 @@ def read_img_path(path, load_size):
         load_size(int) -- the input size. If <= 0, don't resize
     """
     img = Image.open(path).convert('RGB')
-    aus_resize = None
-    if load_size > 0:
-        aus_resize = img.size
+    aus_resize = img.size if load_size > 0 else None
     transform = get_transform(load_size=load_size)
     image = transform(img)
     return image.unsqueeze(0), aus_resize 

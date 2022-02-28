@@ -96,10 +96,7 @@ class UnetSkipConnectionBlock(nn.Module):
         self.model = nn.Sequential(*model)
 
     def forward(self, x):
-        if self.outermost:
-            return self.model(x)
-        else:   # add skip connections
-            return torch.cat([x, self.model(x)], 1)
+        return self.model(x) if self.outermost else torch.cat([x, self.model(x)], 1)
 
 
 def create_model(gpu_ids=[]):
